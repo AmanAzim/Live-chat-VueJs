@@ -9,7 +9,7 @@
                     <div v-for="message in messages" :key="message.id">
                         <span class="text-info">[{{message.name}}]</span>
                         <span>{{message.message}}</span>
-                        <span class="text-secondary time">{{message.timeStamp}}</span>
+                        <span class="text-secondary time">{{message.timestamp}}</span>
                     </div>
                 </div>
             </div>
@@ -35,17 +35,34 @@
             }
         },
         created() {
-            let ref=Fb.collection('messages').orderBy('timestamp')//"collection('name_of_collestion')" it will allow us to access the collection of our need
+            let ref=Fb.collection("messages").orderBy('timestamp');//"collection('name_of_collestion')" it will allow us to access the collection of our need
 
-            ref.onSnapshot((snapshot)=>{//will provide the snap shot of the collection stored on Firebase on each update
-                snapshot.docChanges().forEach(change=>{//iterating through all the messages collection
-                    if(change.type=='added'){//only the newly added message
-                        let doc=change.doc;
+          /*
+            //This will retrieve all the data
+            Fb.collection("messages").orderBy('timestamp').get().then((querySnapshot) =>{
+                querySnapshot.forEach((doc) => {
+                    console.log('doc',doc);
+                   // if(doc.type=='added'){//only the newly added message
+                        //let doc1=doc.doc;
                         this.messages.push({
                             id:doc.id,
                             name:doc.data().name,
                             message:doc.data().message,
                             timestamp:moment(doc.data().timestamp).format('LTS')//format() Giges the time as string
+                        })
+                    //}
+                });
+            });*/
+
+            ref.onSnapshot((snapshot)=>{//will provide the snap shot of the collection stored on Firebase on each update
+                snapshot.docChanges().forEach(change=>{//iterating through all the messages collection
+                    //console.log('changes',change);
+                    if(change.type=='added'){//only the newly added message
+                        this.messages.push({
+                            id:change.doc.id,
+                            name:change.doc.data().name,
+                            message:change.doc.data().message,
+                            timestamp:moment(change.doc.data().timestamp).format('LTS')//format() Giges the time as string
                         })
                     }
                 })

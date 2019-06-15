@@ -18,7 +18,15 @@ export default new Router({
     {
       path:"/chat",
       name:"Chat",
-      component:Chat
+      component:Chat,
+      props:true,
+      beforeEnter(to, from, next){
+        if(to.params.name){ //If the user not have loged in with a name which we send (  $router.push({name:'Chat',params:{name:this.name}}) ) from the Login.vue to take the user to the /chat route
+          next();
+        }else {
+          next({name:'Login'});
+        }
+      }
     }
   ]
 });
