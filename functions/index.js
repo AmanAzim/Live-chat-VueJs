@@ -11,7 +11,7 @@ exports.controlChatLimit=functions.firestore.document('messages/{userId}').onCre
     ref.onSnapshot(snapshot=>{
         let i=0;
         let size=snapshot.size;
-        let sizeToDelete=size-10;
+        let sizeToDelete=size-20;
         console.log('Messages count: ',size);
         snapshot.forEach(doc=>{
             if(i<sizeToDelete){
