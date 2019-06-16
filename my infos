@@ -1,0 +1,24 @@
+#npm install bootstrap jquery popper.js
+
+npm install moment //needed to manage date/time properly
+
+npm install vue-chat-scroll //It will make the user automatically scroll down to the message window to show the latest message
+import VueChatScroll from "vue-chat-scroll";
+Vue.use(VueChatScroll);
+  <div class="messages" v-chat-scroll="{always:false, smooth:true}">
+                    <div v-for="message in messages" :key="message.id">
+                        <span class="text-info">[{{message.name}}]</span>
+                        <span>{{message.message}}</span>
+                        <span class="text-secondary time">{{message.timeStamp}}</span>
+                    </div>
+  </div>
+
+
+Important Firebase infos:
+https://firebase.google.com/docs/web/setup
+
+How to implement real time data retrieving functions:
+https://firebase.google.com/docs/firestore/query-data/listen
+
+Firebase Cloud functions
+https://firebase.google.com/docs/functions/database-events
