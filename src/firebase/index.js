@@ -1,5 +1,13 @@
-import firebase from "firebase/app";
-import "firebase/storage";
+//https://firebase.google.com/docs/web/setup
+
+//import firebase from "firebase/app";
+//import "firebase/storage";
+//import 'firebase/firestore';
+
+const firebase = require("firebase");
+// Required for side-effects
+require("firebase/firestore");
+
 
 var firebaseConfig = {
     apiKey: "AIzaSyChNdM8jNP0Og72k-4NuzC92G3lZMVODSw",
@@ -15,7 +23,6 @@ const firebaseApp=firebase.initializeApp(firebaseConfig);
 
 firebaseApp.firestore().settings({timestampsInSnapshots:true});//it will allow to save the chat with time stamp
 
-//const storageRef=firebase.storage().ref();
-//export {storageRef, firebase as default};
+
 
 export default firebaseApp.firestore();
